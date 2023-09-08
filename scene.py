@@ -7,6 +7,7 @@ import jax
 import jax.numpy as jnp
 import matplotlib.pyplot as plt
 import optax
+from tqdm import tqdm
 
 from typing import List, NamedTuple
 from gaussian_model import *
@@ -151,7 +152,7 @@ if __name__=='__main__':
     plt.show()
 
 
-    nb_iter = 10000
+    nb_iter = 1000
     ## Init optimiser
     ## Set exponential smoothing parameter to 0.9
     # scheduler = optax.constant_decay(1e-3)
@@ -160,7 +161,7 @@ if __name__=='__main__':
     opt_state = optimiser.init(scene)
 
     ## Training loop
-    for i in range(nb_iter):
+    for i in tqdm(range(nb_iter)):
         scene, opt_state, loss = train_step(scene, ref_image, opt_state, optimiser)
         # print("Loss: ", loss)
         ## Print loss and iteration number
